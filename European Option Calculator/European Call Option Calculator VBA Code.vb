@@ -132,6 +132,16 @@ Function rho(K, rd, T, d2)
 End Function
 
 '-----------------------------------------------------------------------------------------
+' clear_calculate() function that clears the data held in cells B12:B18.
+'-----------------------------------------------------------------------------------------
+Function clear_calculate()
+    
+    ' Set the values in cells B12:B18 to "" (Blank)
+    Range("B12:B18").value = ""
+
+End Function
+
+'-----------------------------------------------------------------------------------------
 ' calculate() sub procedure that:
 '   - Take in the European Call parameters input by the user in the Excel worksheet.
 '   - Calculate the price and greeks of the European Call option corresponding to the user
@@ -139,6 +149,9 @@ End Function
 '   - Output the calculated European Call price and greeks to the Excel worksheet.
 '-----------------------------------------------------------------------------------------
 Sub calculate()
+    
+    ' Call clear_calculate to remove any previously calculated values
+    Clear = clear_calculate()
     
     ' Take in the European Call parameters input by the user in the Excel worksheet cells
     ' B2:B4 and B9.
@@ -235,6 +248,22 @@ Function plot(y_title, x_data, y_data, top_disp)
 End Function
 
 '-----------------------------------------------------------------------------------------
+' clear_chart() function that deletes all plots in the active sheet and the values held in
+' columns E:G from row 11 to the last filled row.
+'-----------------------------------------------------------------------------------------
+Function clear_chart()
+    
+    ' Loop through all active ChartObjects in the ActiveSheet and delete each.
+    For Each Chrt In ActiveSheet.ChartObjects
+        Chrt.Delete
+    Next
+    
+    ' Delete the values held in columns E:G from row 11 to the last filled row.
+    Range("E11", Range("G11").End(xlDown)).value = ""
+    
+End Function
+
+'-----------------------------------------------------------------------------------------
 ' chart() sub procedure that:
 '   - Creates a table showing the spot price range specified by user input initial and end
 '     spot prices, as well as the user input stepsize, along with the values of the two
@@ -245,6 +274,11 @@ End Function
 '       3) Both the first and second greeks chosen against the spot price.
 '-----------------------------------------------------------------------------------------
 Sub chart()
+    
+    ' Call clear_chart function to remove a previously made table and any previously made
+    ' charts.
+    Clear = clear_chart()
+    
     ' Take in the European Call start and end spot prices input by the user in the Excel
     ' worksheet cells F4:F5, as well as parameters input by the user in the Excel worksheet
     ' cells B3:B6 and B9.
@@ -339,31 +373,5 @@ Sub chart()
     greek_1_chart = plot(Range("F2").value, Spot_Vals, Greek_1_Vals, 0)
     greek_2_chart = plot(Range("F3").value, Spot_Vals, Greek_2_Vals, 210)
     greeks_chart = plot(Range("F2").value & " and " & Range("F3").value, Spot_Vals, Union(Greek_1_Vals, Greek_2_Vals), 420)
-    
-End Sub
-
-'-----------------------------------------------------------------------------------------
-' clear_calculate() sub process that clears the data held in cells B12:B18.
-'-----------------------------------------------------------------------------------------
-Sub clear_calculate()
-    
-    ' Set the values in cells B12:B18 to "" (Blank)
-    Range("B12:B18").value = ""
-
-End Sub
-
-'-----------------------------------------------------------------------------------------
-' clear_chart() sub process that deletes all plots in the active sheet and the values held
-' in columns E:G from row 11 to the last filled row.
-'-----------------------------------------------------------------------------------------
-Sub clear_chart()
-    
-    ' Loop through all active ChartObjects in the ActiveSheet and delete each.
-    For Each Chrt In ActiveSheet.ChartObjects
-        Chrt.Delete
-    Next
-    
-    ' Delete the values held in columns E:G from row 11 to the last filled row.
-    Range("E11", Range("G11").End(xlDown)).value = ""
     
 End Sub
