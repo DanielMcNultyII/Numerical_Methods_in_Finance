@@ -48,14 +48,14 @@ following root solving methods on the Black Scholes formula:
 
 With the following inputs:
 
-1. Non-Product-Specific Inputs
+1. Non-Product-Specific Inputs:
     (a) Target Market Value
     (b) Initial Guess(es) for each Root Solving Method
     
     ![](IV_Calc_Common_Inputs.png)
 
 
-2. European Call Option Specific Inputs
+2. European Call Option Specific Inputs:
     (a) Spot Price
     (b) Strike Price
     (c) Domestic Zero Rate
@@ -65,7 +65,7 @@ With the following inputs:
     ![](IV_Calc_Call_Inputs.png)
 
 
-3. Bull Spreads Specific Inputs
+3. Bull Spreads Specific Inputs:
     (a) Spot Price
     (b) Long Call Strike Price
     (c) Short Call Strike Price
